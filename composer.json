@@ -1,0 +1,25 @@
+{
+    "name": "tstasiak/fluent-mother",
+    "description": "Reflection based fluent object mother generator",
+    "type": "library",
+    "require": {
+        "myclabs/php-enum": "^1.7",
+        "php": ">= 7.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.4"
+    },
+    "autoload": {
+        "psr-4": {"ObjectMother\\": "src/"}
+    },
+    "autoload-dev": {
+        "psr-4": {"Tests\\ObjectMother\\": "tests/"}
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tomasz Stasiak",
+            "email": "tomasz.stasiak@yahoo.com"
+        }
+    ]
+}
