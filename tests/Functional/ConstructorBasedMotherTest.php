@@ -14,6 +14,7 @@ use Tests\ObjectMother\BuiltClasses\{
     NoConstructor,
     NoTypeHints,
     OptionalArguments,
+    PrivateConstructor,
     Variadic
 };
 
@@ -61,6 +62,7 @@ final class ConstructorBasedMotherTest extends TestCase
             NoConstructor::class,
             NoTypeHints::class,
             OptionalArguments::class,
+            PrivateConstructor::class,
             Variadic::class,
         ];
 

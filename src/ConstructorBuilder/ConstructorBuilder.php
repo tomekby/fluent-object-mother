@@ -30,6 +30,7 @@ final class ConstructorBuilder implements BuildStrategy
         $this->class = new \ReflectionClass($className);
         $constructor = $this->class->getConstructor();
         if ($constructor !== null) {
+            $constructor->setAccessible(true);
             foreach ($constructor->getParameters() as $parameter) {
                 $this->reflectedParams[$parameter->getName()] = $parameter;
             }
@@ -76,8 +77,15 @@ final class ConstructorBuilder implements BuildStrategy
     public function build(): object
     {
         $constructor = $this->class->getConstructor();
-        if ($constructor !== null) {
+
+        // If constructor is not accessible, try to apply a workaround
+        if ($constructor !== null && !$constructor->isPublic()) {
+            $class = $this->class->newInstanceWithoutConstructor();
+
             $constructor->setAccessible(true);
+            $constructor->invoke($class, ...$this->resolveParams());
+
+            return $class;
         }
 
         return $this->class->newInstance(
