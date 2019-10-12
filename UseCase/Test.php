@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once 'vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 include 'TestDTO.php';
 include 'TestDTOMother.php';
