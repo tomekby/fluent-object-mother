@@ -62,7 +62,13 @@ was overwritten with some value, it won't be auto-initiated as there's no need f
 #### But what about...?
 If the type you'd wished to be auto-initialized is not currently supported you can always write your own resolver. All it
 has to do is implement `ObjectMother\ConstructorBuilder\ParamResolver` and be later registered (e.g. in bootstrap file 
-or in test init) with `ObjectMother\ConstructorBuilder\ConstructorBuilder::registerResolver($myResolver)`
+or in test init) with `ObjectMother\ConstructorBuilder\ConstructorBuilder::registerResolver($myResolver)`.  
+
+There's also base class `ObjectMother\ConstructorBuilder\ClassInstance` which should help with creating new class based
+resolvers. There are 2 methods to be implemented:
+- `getAllowedClass(): string` used for deciding whether or not this resolver is capable of processing current parameter
+- `resolveClass(ReflectionClass $class, bool $isOptional, bool $isVariadic): object` used for creating new instance of 
+said class   
 
 ## Problems
 - Values set by default are resolved based on reflection (usually), so they might be semantically valid, they still might
