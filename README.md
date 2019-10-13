@@ -10,6 +10,10 @@ What is usually happening is a dozen of methods in single object mother for crea
 But then, mocking DTOs might easily prove to be more verbose than typical initialization. Also, if DTO/Collection etc. changes
 you might have to fix each mock accordingly.
 
+## Requirements
+- PHP >= 7.3
+- myclabs/php-enum >= 1.7
+
 ## How to use it? 
 Every class should extend `ObjectMother\FluentMother` abstract. This class provides base methods that should ease it's use:
 
