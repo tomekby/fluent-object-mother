@@ -1,5 +1,5 @@
 {
-    "name": "tstasiak/fluent-mother",
+    "name": "tomekby/fluent-object-mother",
     "description": "Reflection based fluent object mother generator",
     "type": "library",
     "require": {
@@ -19,7 +19,7 @@
     "authors": [
         {
             "name": "Tomasz Stasiak",
-            "email": "tomasz.stasiak@yahoo.com"
+            "email": "tomasz.stasiak@yahoo.pl"
         }
     ]
 }
