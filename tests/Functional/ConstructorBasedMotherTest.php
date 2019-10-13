@@ -4,19 +4,23 @@ declare(strict_types=1);
 
 namespace Unit\ObjectMother\Functional;
 
+use GlobalObject;
 use ObjectMother\Constructor;
+use ObjectMother\ConstructorBuilder;
+use ObjectMother\ConstructorBuilder\ClassInstance;
 use ObjectMother\FluentMother;
 use PHPUnit\Framework\TestCase;
 use Tests\ObjectMother\BuiltClasses\{
     BaseValueObjects,
+    CustomClass,
     EmptyConstructor,
     FewArguments,
     NoConstructor,
     NoTypeHints,
     OptionalArguments,
     PrivateConstructor,
-    Variadic
-};
+    TestHelper,
+    Variadic};
 
 // We have to require it manually, as it is not PSR-4 compliant
 require_once __DIR__ . '/../BuiltClasses/GlobalObject.php';
@@ -58,7 +62,7 @@ final class ConstructorBasedMotherTest extends TestCase
             BaseValueObjects::class,
             EmptyConstructor::class,
             FewArguments::class,
-            \GlobalObject::class,
+            GlobalObject::class,
             NoConstructor::class,
             NoTypeHints::class,
             OptionalArguments::class,
@@ -132,5 +136,39 @@ final class ConstructorBasedMotherTest extends TestCase
             ['x' => 'some value', 'default' => 12],
             $mother->defaultBuilder()->build()->getState()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function shouldWorkWithCustomClassResolver(): void
+    {
+        $mother = new class extends FluentMother {
+            use Constructor;
+
+            protected function _class(): string
+            {
+                return CustomClass::class;
+            }
+        };
+        $resolver = new class extends ClassInstance {
+            protected function getAllowedClass(): string
+            {
+                return GlobalObject::class;
+            }
+
+            protected function resolveClass(
+                \ReflectionClass $class,
+                bool $isOptional,
+                bool $isVariadic
+            ): object {
+                return new GlobalObject(0xFEEDFACE);
+            }
+        };
+        ConstructorBuilder::registerResolver(new $resolver);
+
+        /** @var GlobalObject $parameter */
+        $parameter = $mother->build()->getState()['class'];
+        self::assertEquals(0xFEEDFACE, $parameter->getValue());
     }
 }
