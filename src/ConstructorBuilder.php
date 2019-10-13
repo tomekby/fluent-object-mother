@@ -2,13 +2,18 @@
 
 declare(strict_types=1);
 
-namespace ObjectMother\ConstructorBuilder;
-
-use ObjectMother\BuildStrategy;
+namespace ObjectMother;
 
 //todo type checks based on reflected params?
 //todo: make more generic MethodBuilder - this would allow easy creation
 //  of factory method based builder
+use ObjectMother\ConstructorBuilder\{
+    BaseValueObject,
+    Builtin,
+    DefaultValue,
+    ParamResolver
+};
+
 final class ConstructorBuilder implements BuildStrategy
 {
     /** @var ParamResolver[] */

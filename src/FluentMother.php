@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ObjectMother;
 
-//todo: allow building based on a prototype (?)
 //todo: resolver checking if there's mother for selected object (?)
 abstract class FluentMother
 {

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace ObjectMother;
 
-use ObjectMother\ConstructorBuilder\ConstructorBuilder;
-
 trait Constructor
 {
     protected function _initialize(): BuildStrategy
